@@ -12,18 +12,11 @@
         <button class="btn btn-primary" @:click="onSubmit" type="submit">추가하기</button>
       </div>
     </form>
-    <!-- <div class="card">
+    <div class="card">
       <div class="card-body p-2">{{ todos[0].subject }}</div>
     </div>
     <div class="card">
       <div class="card-body p-2">{{ todos[1].subject }}</div>
-    </div> -->
-    <div class="card">
-      <div class="card-body p-2">
-        <div v-for="i in todos" :key="i.id">
-          {{ i.subject }}
-        </div>
-      </div>
     </div>
   </div>
 </template>
