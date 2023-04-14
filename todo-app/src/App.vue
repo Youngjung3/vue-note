@@ -1,65 +1,42 @@
 <template>
   <div class="container">
     <h1>오늘의 할일</h1>
-    <form action="#" class="d-flex" @:submit.prevent="onSubmit">
-      <div class="input-group mb-3">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="일정을 추가하세요"
-          v-model="todo"
-        />
-        <button class="btn btn-primary" @:click="onSubmit" type="submit">추가하기</button>
-      </div>
-    </form>
-    <!-- <div class="card">
-      <div class="card-body p-2">{{ todos[0].subject }}</div>
-    </div>
-    <div class="card">
-      <div class="card-body p-2">{{ todos[1].subject }}</div>
-    </div> -->
-    <div class="card">
-      <div class="card-body p-2">
-        <div v-for="i in todos" :key="i.id">
-          {{ i.subject }}
-        </div>
-      </div>
-    </div>
+
+    <TodoBasicForm @add-todo="onAdd" />
+    
+    <div v-if="!todos.length">등록된 일정이 없습니다.</div>
+    
+    <TodoList :todos="todos" />
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import TodoBasicForm from "./components/TodoBasicForm.vue";
+import TodoList from "./components/TodoList.vue";
 
 export default {
+  components:{TodoBasicForm, TodoList },
   setup() {
-    const todo = ref("");
-    let todos = ref([
-      {
-        id: 1,
-        subject: "리액트 복습",
-      },
-      {
-        id: 2,
-        subject: "뷰 복습",
-      },
-    ]);
+    const todos = ref([]);
 
-    const onSubmit = () => {
-      console.log(todos.value);
-      todos.value.push({
-        id: Date.now(),
-        subject: todo.value,
-      });
-    };
-    // const updateTodo =(e)=>{
-    //   todo.value=e.target.value;
-    // }
+    const todoStyle={
+      color: "gray",
+      textDecoration: "line-through",
+    }
+    const deleteTodo =(data)=>{
+      todos.value.splice(data,1)
+    }
 
+    const onAdd=(todo)=>{
+      console.log(todo);
+      todos.value.push(todo);
+    }
     return {
-      todo,
-      onSubmit,
       todos,
+      todoStyle,
+      deleteTodo,
+      onAdd,
     };
   },
 };
@@ -72,4 +49,8 @@ export default {
 .green {
   color: green;
 }
+.todo{
+    color: gray;
+    text-decoration: line-through;
+  }
 </style>
