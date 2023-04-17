@@ -30,7 +30,7 @@ export default {
           {
             id: Date.now(),
             subject: todo.value,
-            complated: false,
+            completed: false,
           });
         errMsg.value = false;
         todo.value = "";
