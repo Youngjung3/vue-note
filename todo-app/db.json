@@ -32,12 +32,12 @@
     },
     {
       "subject": "s",
-      "completed": true,
+      "completed": false,
       "id": 12
     },
     {
       "subject": "s",
-      "completed": true,
+      "completed": false,
       "id": 13
     },
     {

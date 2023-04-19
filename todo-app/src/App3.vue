@@ -38,9 +38,9 @@ export default {
     })
     const todos = ref([]);
     const getTodos=()=>{
-      axios.get("http://localhost:8080/todos").then((res)=>{
-        // console.log("todos.value:",res);
-        todos.value=res.data.todos;
+      axios.get("http://localhost:3000/todos").then((res)=>{
+        console.log("todos.value:",res);
+        todos.value=res.data;
       }).catch((err)=>{
         console.log(err);
         error.value="일시적으로 오류가 발생했습니다. 잠시후 이용해주세요2"
@@ -49,38 +49,31 @@ export default {
     getTodos();
     const onSubmit = (todo) => {
       error.value='';
-      axios.post("http://localhost:8080/todos",{
+      axios.post("http://localhost:3000/todos",{
         subject:todo.subject,
         completed:todo.completed,
       })
       .then((res)=>{
-        todos.value.push(res.data.todos);
-        // return [console.log(res) ,todos.value.push(res.data)]
-        getTodos();
+        return [console.log(res) ,todos.value.push(res.data)]
       })
       .catch((err)=>{
         console.log(err);
         error.value='일시적으로 오류가 발생했습니다. 잠시후 이용해주세요'
       })
-      // todos.value.push(todo);
+    //   todos.value.push(todo);
     };
     const deleteTodo = (index) => {
       error.value="";
-      const id=index;
-      axios.delete("http://localhost:8080/todos/" + id)
-      .then(()=>{
-        getTodos();
-      }).catch((err)=>{console.log(err);});
+      // console.log(index);
+      const id=todos.value[index].id;
+      axios.delete("http://localhost:3000/todos/" + id)
+      .then(()=>{todos.value.splice(index, 1);})
+      .catch((err)=>{console.log(err);});
     };
     const toggleTodo = (index) => {
-      // console.log(todos.value);
-      // const id =todos.value[index].id;
-      const id = index;
-      axios.post("http://localhost:8080/todos/" + id)
-        .then((res)=>{
-          // todos.value[index].completed=!todos.value[index].completed
-          console.log(res);
-        }).catch((err)=>{console.log(err);});
+      // console.log(index);
+      const id =todos.value[index].id;
+      axios.patch("http://localhost:3000/todos/"+id,{completed:!todos.value[index].completed}).then((res)=>{todos.value[index].completed=!todos.value[index].completed}).catch((err)=>{console.log(err);});
     };
 
     return {
