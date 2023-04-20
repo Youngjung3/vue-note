@@ -30,7 +30,6 @@ export default {
     const filteredTodos=computed(()=>{
       if(searchText.value){
         return todos.value.filter((todo)=>{
-          console.log("22222",todos.value,todo);
           return todo.subject.includes(searchText.value)
         })
       }
@@ -60,18 +59,15 @@ export default {
         console.log(err);
         error.value='일시적으로 오류가 발생했습니다. 잠시후 이용해주세요'
       })
-    //   todos.value.push(todo);
     };
     const deleteTodo = (index) => {
       error.value="";
-      // console.log(index);
       const id=todos.value[index].id;
       axios.delete("http://localhost:3000/todos/" + id)
       .then(()=>{todos.value.splice(index, 1);})
       .catch((err)=>{console.log(err);});
     };
     const toggleTodo = (index) => {
-      // console.log(index);
       const id =todos.value[index].id;
       axios.patch("http://localhost:3000/todos/"+id,{completed:!todos.value[index].completed}).then((res)=>{todos.value[index].completed=!todos.value[index].completed}).catch((err)=>{console.log(err);});
     };

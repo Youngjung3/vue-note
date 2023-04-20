@@ -10,6 +10,15 @@
       @toggle-todo="toggleTodo"
       @delete-todo="deleteTodo"
     />
+    <nav>
+  <ul class="pagination justify-content-center">
+    <li v-if="currentPage !==1" class="page-item"><a class="page-link" @click="getTodos(currentPage - 1)">Previous</a></li>
+    <li v-for="page in numberOfPages" class="page-item" :key="page" :class="currentPage===page ? 'active' : ''" >
+      <a class="page-link" @click="getTodos(page)">{{ page }}</a></li>
+    <li v-if="currentPage !== numberOfPages" class="page-item"><a class="page-link" @click="getTodos(currentPage + 1)">Next</a></li>
+  </ul>
+</nav>
+    {{ numberOfPages }}
   </div>
 </template>
 
@@ -18,6 +27,7 @@ import { ref, computed } from "vue";
 import axios from "axios";
 import TodoBasicForm from "./components/TodoBasicForm.vue";
 import TodoList from "./components/TodoList.vue";
+
 export default {
   components: {
     TodoBasicForm,
@@ -27,6 +37,12 @@ export default {
     let error=ref("");
     const toggle = ref(false);
     const searchText=ref("");
+    const totalTodos=ref(0);
+    const limit=5;
+    const currentPage=ref(1);
+    const numberOfPages=computed(()=>{
+      return Math.ceil(totalTodos.value/limit);
+    })
     const filteredTodos=computed(()=>{
       if(searchText.value){
         return todos.value.filter((todo)=>{
@@ -37,10 +53,14 @@ export default {
       return todos.value;
     })
     const todos = ref([]);
-    const getTodos=()=>{
-      axios.get("http://localhost:8080/todos").then((res)=>{
-        // console.log("todos.value:",res);
-        todos.value=res.data.todos;
+
+    const getTodos=(page=currentPage.value)=>{
+      currentPage.value=page;
+      console.log(currentPage.value);
+      axios.get(`http://localhost:8080/todos?_page=${currentPage.value}&_limit=${limit}`).then((res)=>{
+        // console.log("성공",res.headers["x-total-count"]);
+        totalTodos.value=res.headers["x-total-count"];
+        todos.value=res.data;
       }).catch((err)=>{
         console.log(err);
         error.value="일시적으로 오류가 발생했습니다. 잠시후 이용해주세요2"
@@ -73,7 +93,7 @@ export default {
       }).catch((err)=>{console.log(err);});
     };
     const toggleTodo = (index) => {
-      // console.log(todos.value);
+      console.log(todos.value);
       // const id =todos.value[index].id;
       const id = index;
       axios.post("http://localhost:8080/todos/" + id)
@@ -84,6 +104,7 @@ export default {
     };
 
     return {
+      currentPage,
       error,
       onSubmit,
       todos,
@@ -92,6 +113,8 @@ export default {
       toggleTodo,
       searchText,
       filteredTodos,
+      numberOfPages,
+      getTodos,
     };
   },
 };
