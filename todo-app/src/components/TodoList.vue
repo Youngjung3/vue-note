@@ -1,8 +1,7 @@
 <template>
     <div class="card">
-    <div class="card-body p-2">
-      <div class="d-flex" v-for="i in todos" :key="i.id">
-        
+    <div class="card-body p-2 d-flex" v-for="i in todos" :key="i.id">
+
         <div class="form-check flex-grow-1">
           <label class="form-check-label" :class="{todo:i.completed}">
             <input
@@ -19,7 +18,6 @@
             삭제
           </button>
         </div>
-      </div>
     </div>
   </div>
 </template>
