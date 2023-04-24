@@ -102,6 +102,7 @@ export default {
       const id = index;
       axios.patch("http://localhost:8080/todos/" + id,{completed:checked})
         .then(()=>{
+          getTodos();
           // todos.value[id].completed=checked;
           // console.log("22222",todos.value[id]);
           // console.log("11111",todos.value[id].completed);

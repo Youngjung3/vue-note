@@ -8,7 +8,7 @@
       </div>
       <div class="col-6"> 
         <div class="form-group mb-2"><label>수행상태: </label>
-          <button class="btn" @click="toggleCompleted" :class="todo.completed ? 'btn-success' : 'btn-danger'" type="button">{{todo.completed ? "완료" : "미완료" }}</button>
+          <button class="btn" @click="toggleTodoStatus" :class="(todo.completed) ? ('btn-success') : ('btn-danger')" type="button">{{(todo.completed) ? ("완료") : ("미완료") }}</button>
         </div>
       </div>
     </div>
@@ -52,7 +52,7 @@ export default {
             console.error(err);
           })
         }
-        const toggleCompleted=()=>{
+        const toggleTodoStatus=()=>{
           todo.value.completed=!todo.value.completed;
         }
         const getTodo=()=>{
@@ -77,7 +77,7 @@ export default {
           loading,
           moveToTodoListPage,
           onSave,
-          toggleCompleted,
+          toggleTodoStatus,
           todoUpdate,
         }
     }
