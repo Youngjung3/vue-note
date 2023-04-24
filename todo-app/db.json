@@ -61,24 +61,9 @@
       "id": 12
     },
     {
-      "subject": "ㅋ",
-      "completed": false,
+      "subject": "ㅋㅌㅊ1ㄴㅇㅁ",
+      "completed": true,
       "id": 13
-    },
-    {
-      "subject": "ㅇ",
-      "completed": false,
-      "id": 14
-    },
-    {
-      "subject": "ㅁㄴㅇ",
-      "completed": false,
-      "id": 15
-    },
-    {
-      "subject": "ㅇ",
-      "completed": false,
-      "id": 16
     }
   ]
 }
