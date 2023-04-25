@@ -35,7 +35,7 @@
 <script>
 import { useRoute, useRouter } from "vue-router";
 import axios from "axios";
-import { ref, computed, onUnmounted} from "vue";
+import { ref, computed, onBeforeMount, onMounted, onUpdated, onBeforeUpdate, onUnmounted} from "vue";
 import _ from "lodash";
 import Toast from "@/components/Toast.vue";
 
@@ -58,17 +58,31 @@ export default {
     const showToast = ref(false);
     const toastMessage =ref('');
     const toastAlertType = ref('');
-    const timeout=ref(null);
+    // const timeout=ref(null);
 
-    onUnmounted(()=>{
-      clearTimeout(timeout.value);
+    onBeforeMount(()=>{
+      console.log("onBeforeMount",document.querySelector("#mango"));
+    });
+    onMounted(()=>{
+      console.log("onMounted",document.querySelector("#mango"));
     })
+    onUpdated(()=>{
+      console.log("onUpdated 업데이트 후");
+    })
+    onBeforeUpdate(()=>{
+      console.log("onBeforeUpdate 업데이트 직전");
+    })
+    onUnmounted(()=>{
+      console.log("onUnmounted 죽었다");
+    })
+
 
     const triggerToast = (msg,type='info') => {
       toastMessage.value = msg;
       toastAlertType.value=type;
       showToast.value = true;
-      timeout.value = setTimeout(()=>{
+      setTimeout(()=>{
+        console.log("ID-vue 컴포넌트의 함수");
         toastMessage.value = '';
         toastAlertType.value='';
         showToast.value = false;
