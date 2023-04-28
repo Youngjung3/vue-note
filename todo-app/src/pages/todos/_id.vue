@@ -1,16 +1,10 @@
 <template>
-  <TodoForm :editing="true"/>
+  <TodoForm :editing="true" />
 </template>
-
 <script>
-import TodoForm from '@/components/TodoForm.vue';
+import TodoForm from "@/components/TodoForm.vue";
 export default {
-  components:{
-    TodoForm
-  },
+  components: { TodoForm }
 }
 </script>
-
-<style>
-
-</style>
+<style></style>

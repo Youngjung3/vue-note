@@ -1,9 +1,8 @@
 <template>
-  <div class="toast-box alert" :class="`alert-${type}`">
+  <div class="alert toast-box" :class="`alert-${type}`">
     {{ message }}
   </div>
 </template>
-
 <script>
 export default {
   props: {
@@ -15,11 +14,10 @@ export default {
       type: String,
       default: 'info',
     }
-  },
+  }
 
-};
+}
 </script>
-
 <style>
 .toast-box {
   position: fixed;
