@@ -64,7 +64,7 @@
 <script>
 	import { ref, computed, watch } from "vue";
 	import { useRouter } from "vue-router";
-	import axios from "axios";
+	import axios from "@/axios";
 	import TodoList from "@/components/TodoList.vue";
 	import { useToast } from "@/composables/toast";
 	import Toast from "@/components/Toast";
@@ -102,7 +102,7 @@
 			const getTodos = (btn = currentPage.value) => {
 				currentPage.value = btn;
 				axios
-					.get(`http://localhost:8080/todos?_sort=id&_order=desc&subject_like=${searchText.value}&_page=${btn}&_limit=${limit}`)
+					.get(`todos?_sort=id&_order=desc&subject_like=${searchText.value}&_page=${btn}&_limit=${limit}`)
 					.then((res) => {
 						totalTodos.value = res.headers["x-total-count"];
 						todos.value = res.data;
@@ -118,7 +118,7 @@
 			const onSubmit = (todo) => {
 				error.value = "";
 				axios
-					.post("http://localhost:8080/todos", {
+					.post("todos", {
 						subject: todo.subject,
 						completed: todo.completed,
 					})
@@ -135,7 +135,7 @@
 			const deleteTodo = (id) => {
 				error.value = "";
 				axios
-					.delete("http://localhost:8080/todos/" + id)
+					.delete("todos/" + id)
 					.then(() => {
 						getTodos();
 					})
@@ -149,7 +149,7 @@
 				const id = index;
 				axios
 					// 수정
-					.patch("http://localhost:8080/todos/" + id, {
+					.patch("todos/" + id, {
 						completed: checked,
 					})
 					.then(() => {

@@ -1,22 +1,18 @@
-import { ref, onUnmounted } from "vue";
+import { ref, onUnmounted, computed } from "vue";
+import { useStore } from "vuex";
 
 export const useToast = () => {
-  const showToast = ref(false);
-  const toastMessage = ref('');
-  const toastAlertType = ref('');
-  const timeout = ref(null);
+  const store = useStore();
+  const toastMessage = computed(() => store.state.toastMessage);
+  const toastAlertType = computed(() => store.state.toastAlertType);
+  const showToast = computed(() => store.state.showToast);
+  const timeout = computed(() => store.state.timeout);
+
   onUnmounted(() => { clearTimeout(timeout.value) })
-  const triggerToast = (msg, type = 'info') => {
-    toastMessage.value = msg;
-    toastAlertType.value = type;
-    showToast.value = true;
-    timeout.value = setTimeout(() => {
-      toastMessage.value = '';
-      toastAlertType.value = '';
-      showToast.value = false;
-    }, 2000)
+  const triggerToast = (message, type = 'info') => {
+    store.dispatch('triggerToast', { message, type })
   }
   return {
-    showToast, toastMessage, toastAlertType, triggerToast,timeout
+    showToast, toastMessage, toastAlertType, triggerToast, timeout
   }
 }

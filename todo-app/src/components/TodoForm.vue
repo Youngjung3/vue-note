@@ -59,7 +59,7 @@
 </template>
 <script>
 	import { useRoute, useRouter } from "vue-router";
-	import axios from "axios";
+	import axios from "@/axios";
 	import { ref, computed, onUnmounted, watchEffect } from "vue";
 	import _ from "lodash";
 	import Toast from "@/components/Toast.vue";
@@ -74,6 +74,7 @@
 			Toast,
 		},
 		setup(props) {
+
 			const subjectError = ref("");
 			const originalTodo = ref(null);
 			const route = useRoute();
@@ -85,7 +86,7 @@
 			});
 			const loading = ref(false);
 			const todoId = route.params.id;
-			const url = "http://localhost:8080/todos/";
+			const url = "todos/";
 
 			const showToast = ref(false);
 			const toastMessage = ref("");
@@ -116,46 +117,41 @@
 			const toggleTodoStatus = () => {
 				todo.value.completed = !todo.value.completed;
 			};
+
 			const onSave = () => {
-				let response;
-				const data = {
-					subject: todo.value.subject,
-					completed: todo.value.completed,
-					body: todo.value.body,
-				};
 				subjectError.value = "";
 				if (!todo.value.subject) {
 					subjectError.value = "일정명은 필수입력사항 입니다";
+					return;
 				}
-				if (props.editing) {
-					//editing 일때 ( 수정 put)
-					axios
-						.put(`${url}${todoId}`, data)
-						.then((res) => {
-							response = res;
-							originalTodo.value = { ...response.data };
-							triggerToast("등록이 완료되었습니다", "info");
-						})
-						.catch((err) => {
-							console.error(err);
-							triggerToast("일시적으로 오류가 발생하였습니다. 잠시후 다시 이용 해주세요.", "danger");
-						});
-				} else {
-					//editing 아닐때 (새일정등록 create)
-					axios
-						.post(`${url}`, data)
-						.then((res) => {
-							response = res;
-							triggerToast("등록이 완료되었습니다", "info");
-							todo.value.subject = "";
-							todo.value.body = "";
-						})
-						.catch((err) => {
-							console.error(err);
-							triggerToast("일시적으로 오류가 발생하였습니다. 잠시후 다시 이용 해주세요.", "danger");
-						});
-				}
-			}; //onSave 함수꺼
+				let response;
+				axios({
+					method: props.editing ? "put" : "post",
+					url: props.editing ? `${url}${todoId}` : `${url}`,
+					data: {
+						subject: todo.value.subject,
+						completed: todo.value.completed,
+						body: todo.value.body,
+					},
+				})
+					.then((res) => {
+						console.log(props.editing);
+						const message = `${props.editing ? "수정에" : "등록에"} 성공하였습니다`;
+						triggerToast(message);
+						if (!props.editing) {
+							routers.push({
+								name: "Todos",
+							});
+						} else {
+							originalTodo.value = { ...res.data };
+						}
+					})
+					.catch((err) => {
+						console.error(err);
+						triggerToast("일시적으로 오류가 발생했습니다. 잠시후 다시 이용해주세요", "danger");
+					});
+			};
+
 			const getTodo = () => {
 				loading.value = true;
 				axios
@@ -181,8 +177,8 @@
 			};
 
 			const updateTodoSubject = (newVal) => {
-				console.log("🐱‍🐉😻",newVal);
-				todo.value.subject=newVal;
+				console.log("🐱‍🐉😻", newVal);
+				todo.value.subject = newVal;
 			};
 
 			return {

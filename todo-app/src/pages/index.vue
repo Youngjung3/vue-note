@@ -1,5 +1,11 @@
 <template>
 	<h1>영화목록</h1>
+	<div>
+		{{ count }}
+		<button @click="count++">조회수</button>
+
+	</div>
+
 	<div class="row">
 		<div
 			v-for="(list, index) in movieLists.list"
@@ -44,11 +50,13 @@
 <script>
 	import axios from "axios";
 	import { ref, reactive } from "vue";
+	import { useCount } from "@/composables/count";
 
 	export default {
 		setup() {
 			const URL = `http://www.omdbapi.com/?apikey=8af1c51&s=raw`;
 			const API_URL = `http://www.omdbapi.com/?i=tt6539262&apikey=8af1c51`;
+			const {count} = useCount();
 
 			const movies = reactive({ list: [] });
 			const searchId = ref(null);
@@ -56,7 +64,6 @@
 			const getMovisList = () => {
 				axios.get(URL).then(({ data }) => {
 					movieLists.list = data.Search;
-					console.log("🍕", movieLists.list);
 				});
 			};
 			const getMovis = () => {
@@ -73,8 +80,9 @@
 			};
 			getMovisList();
 			getMovis();
+
 			return {
-				movies,
+				movies,count,
 				movieLists,
 				linkMovie,
 			};

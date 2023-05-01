@@ -43,7 +43,7 @@
     },
     {
       "subject": " 일정등록하기",
-      "completed": false,
+      "completed": true,
       "body": "수정되냐\n일정등록하기",
       "id": 8
     },
@@ -54,16 +54,28 @@
       "id": 9
     },
     {
-      "subject": "힘들었따 내껀데 수정",
-      "completed": true,
-      "body": "힘들었따",
+      "subject": "힘들었따 내껀데 수정ㄱㄱ",
+      "completed": false,
+      "body": "힘들었따ㄷㅈㅈㅈㅈㅈ",
       "id": 10
     },
     {
-      "subject": "zfz",
+      "subject": "타입스크립트",
       "completed": false,
-      "body": "dfzdf",
+      "body": "타입스크립트",
       "id": 11
+    },
+    {
+      "subject": "setw",
+      "completed": false,
+      "body": "eayr5uwet",
+      "id": 12
+    },
+    {
+      "subject": "망고의 일정목록",
+      "completed": false,
+      "body": "망고의 일정목록",
+      "id": 13
     }
   ]
 }
