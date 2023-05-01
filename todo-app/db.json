@@ -6,64 +6,64 @@
       "id": 1
     },
     {
-      "subject": "뷰복습하기",
-      "completed": false,
-      "id": 2
+      "subject": "뷰복습하기ㅁ굦54ㅛㅈ4뵤14 5ㅛ",
+      "complete": false,
+      "id": 2,
+      "completed": false
     },
     {
-      "subject": "리액트프로젝트 유지보수",
-      "completed": false,
-      "id": 3
+      "subject": "타입스크립트공부",
+      "complete": true,
+      "id": 3,
+      "completed": true
     },
     {
-      "subject": "이력서 페이지 만들기",
-      "completed": false,
-      "id": 4
+      "subject": "타입스크립트 공부",
+      "complete": false,
+      "id": 4,
+      "completed": true
     },
     {
-      "subject": "입사지원하기",
-      "completed": false,
+      "subject": "수정한거",
+      "completed": true,
+      "body": "수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니수정되니",
       "id": 5
     },
     {
-      "subject": "망고패드갈기",
-      "completed": true,
+      "subject": "일정추가",
+      "completed": false,
+      "body": "일정추가",
       "id": 6
     },
     {
-      "subject": "망고랑 얘기하기",
-      "completed": false,
+      "subject": "일정등록하기",
+      "completed": true,
+      "body": "일정등록하기",
       "id": 7
     },
     {
-      "subject": "빨래널기",
+      "subject": " 일정등록하기",
       "completed": false,
+      "body": "수정되냐\n일정등록하기",
       "id": 8
     },
     {
-      "subject": "자바스크립트 복습하기",
-      "completed": false,
+      "subject": "ㅈㅈ",
+      "completed": true,
+      "body": "ㅇㅇㅇ",
       "id": 9
     },
     {
-      "subject": "리덕스 공부하기",
-      "completed": false,
+      "subject": "힘들었따 내껀데 수정",
+      "completed": true,
+      "body": "힘들었따",
       "id": 10
     },
     {
-      "subject": "ㅌ",
+      "subject": "zfz",
       "completed": false,
+      "body": "dfzdf",
       "id": 11
-    },
-    {
-      "subject": "ㄱ",
-      "completed": false,
-      "id": 12
-    },
-    {
-      "subject": "ㅋㅌㅊ1ㄴㅇㅁ",
-      "completed": true,
-      "id": 13
     }
   ]
 }

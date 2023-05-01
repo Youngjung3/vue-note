@@ -14,10 +14,9 @@ export const useToast = () => {
       toastMessage.value = '';
       toastAlertType.value = '';
       showToast.value = false;
-    }, 5000)
+    }, 2000)
   }
   return {
     showToast, toastMessage, toastAlertType, triggerToast,timeout
   }
 }
-
